@@ -92,3 +92,28 @@ class TestDfsBacktracking(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+from algorithms.csp_forward_checking import solve_all_csp, solve_first_csp
+
+class TestCspForwardChecking(unittest.TestCase):
+    def test_csp_solution_counts(self):
+        expected = {4: 2, 5: 10, 6: 4, 7: 40, 8: 92}
+        for n, count in expected.items():
+            with self.subTest(n=n):
+                solutions, _, _ = solve_all_csp(n)
+                self.assertEqual(len(solutions), count)
+
+    def test_csp_first_solution_is_valid(self):
+        for n in range(4, 9):
+            with self.subTest(n=n):
+                sol, _, _ = solve_first_csp(n)
+                self.assertIsNotNone(sol)
+                # Kiểm tra độ dài bàn cờ
+                self.assertEqual(len(sol), n)
+                # Kiểm tra không trùng cột
+                self.assertEqual(len(set(sol)), n)
+                # Kiểm tra đường chéo
+                for i in range(n):
+                    for j in range(i + 1, n):
+                        self.assertNotEqual(abs(sol[i] - sol[j]), abs(i - j))
