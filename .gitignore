@@ -7,3 +7,7 @@ env/
 .idea/
 .vscode/
 *.csv
+
+
+CLAUDE.md
+/claude
