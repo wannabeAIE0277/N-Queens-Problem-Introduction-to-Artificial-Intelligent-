@@ -24,6 +24,12 @@ from algorithms.local_min_conflicts import get_total_conflicts, min_conflicts
 BOARD_SIZES = [4, 5, 6, 7, 8]
 SYSTEMATIC_REPEATS = 10      # runs per N for DFS and CSP
 LOCAL_SEARCH_RUNS = 20       # runs per N for Min-Conflicts
+
+# REPRODUCIBILITY: Min-Conflicts is randomized, so every run gets its own FIXED
+# seed (BENCHMARK_SEED + n * 100 + run_index). Re-running this script gives
+# exactly the same solutions, steps and restarts. Runtimes (ms) still vary a
+# little because they depend on the computer, but all counts are identical.
+BENCHMARK_SEED = 2024
 CSV_PATH = os.path.join(PROJECT_ROOT, "experiments", "results_logger.csv")
 CSV_HEADERS = [
     "board_size",
@@ -32,6 +38,8 @@ CSV_HEADERS = [
     "safe_checks",
     "valid_nodes",
     "avg_runtime_ms",
+    "avg_steps",
+    "avg_restarts",
 ]
 
 
@@ -61,23 +69,31 @@ def benchmark_systematic(algorithm_name: str, solver, n: int) -> dict:
         "safe_checks": safe_checks,
         "valid_nodes": valid_nodes,
         "avg_runtime_ms": total_time_ms / SYSTEMATIC_REPEATS,
+        "avg_steps": "N/A",       # only meaningful for Min-Conflicts
+        "avg_restarts": "N/A",
     }
 
 
 def benchmark_min_conflicts(n: int) -> dict:
     """
     Time Min-Conflicts: each run finds ONE solution. It is randomized, so we
-    average the runtime over LOCAL_SEARCH_RUNS runs.
+    average over LOCAL_SEARCH_RUNS runs, each with its own fixed seed so the
+    steps and restarts are reproducible.
 
     Min-Conflicts has no search tree, so safe_checks and valid_nodes do not
     apply and are recorded as "N/A".
     """
     total_time_ms = 0.0
+    total_steps = 0
+    total_restarts = 0
 
-    for _ in range(LOCAL_SEARCH_RUNS):
+    for run_index in range(LOCAL_SEARCH_RUNS):
+        run_seed = BENCHMARK_SEED + n * 100 + run_index
         start_time = time.perf_counter()
-        board, _, _ = min_conflicts(n)
+        board, steps_taken, restarts_used = min_conflicts(n, seed=run_seed)
         end_time = time.perf_counter()
+        total_steps += steps_taken
+        total_restarts += restarts_used
         total_time_ms += (end_time - start_time) * 1000.0
 
         # Safety net: make sure every timed run really produced a solution.
@@ -91,6 +107,8 @@ def benchmark_min_conflicts(n: int) -> dict:
         "safe_checks": "N/A",
         "valid_nodes": "N/A",
         "avg_runtime_ms": total_time_ms / LOCAL_SEARCH_RUNS,
+        "avg_steps": total_steps / LOCAL_SEARCH_RUNS,
+        "avg_restarts": total_restarts / LOCAL_SEARCH_RUNS,
     }
 
 
@@ -103,6 +121,13 @@ def run_all_benchmarks() -> list[dict]:
         rows.append(benchmark_systematic("CSP Forward Checking", solve_all_csp, n))
         rows.append(benchmark_min_conflicts(n))
     return rows
+
+
+def format_optional_number(value) -> str:
+    """Format a number to 3 decimals, or keep text such as "N/A" unchanged."""
+    if isinstance(value, str):
+        return value
+    return f"{value:.3f}"
 
 
 def save_to_csv(rows: list[dict], file_path: str) -> None:
@@ -118,6 +143,8 @@ def save_to_csv(rows: list[dict], file_path: str) -> None:
                 row["safe_checks"],
                 row["valid_nodes"],
                 f"{row['avg_runtime_ms']:.3f}",
+                format_optional_number(row["avg_steps"]),
+                format_optional_number(row["avg_restarts"]),
             ])
 
 
@@ -144,8 +171,9 @@ def print_markdown_table(title: str, rows: list[dict], column_key: str,
             for row in rows:
                 if row["algorithm"] == algorithm_name and row["board_size"] == n:
                     value = row[column_key]
-                    if column_key == "avg_runtime_ms":
-                        cells.append(f"{value:.3f}")
+                    if column_key in ("avg_runtime_ms", "avg_steps",
+                                      "avg_restarts"):
+                        cells.append(format_optional_number(value))
                     else:
                         cells.append(str(value))
         print(f"| {algorithm_name} | " + " | ".join(cells) + " |")
@@ -167,6 +195,11 @@ def main() -> None:
                          f"DFS/CSP: mean of {SYSTEMATIC_REPEATS} runs "
                          f"(all solutions). Min-Conflicts: mean of "
                          f"{LOCAL_SEARCH_RUNS} runs (one solution).")
+    print_markdown_table("Min-Conflicts average steps", rows, "avg_steps",
+                         f"Mean moves over {LOCAL_SEARCH_RUNS} seeded runs "
+                         f"(seed = {BENCHMARK_SEED} + N*100 + run index).")
+    print_markdown_table("Min-Conflicts average restarts", rows, "avg_restarts",
+                         "Mean random restarts per run.")
     print(f"Saved {len(rows)} rows to {CSV_PATH}")
 
 
