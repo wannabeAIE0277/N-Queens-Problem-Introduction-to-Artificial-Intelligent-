@@ -103,7 +103,7 @@ n-queens-ai-project/
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/wannabeAIE0277/N-Queens-Problem.git
+git clone https://github.com/wannabeAIE0277/N-Queens-Problem-Introduction-to-Artificial-Intelligent-.git
 cd N-Queens-Problem
 
 # Optional: activate virtual environment
