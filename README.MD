@@ -23,8 +23,8 @@ This repository provides an end-to-end, reproducible implementation and empirica
 
 | Member Name | Student ID | Core Responsibilities & Outputs | Contribution |
 | :--- | :---: | :--- | :---: |
-| **Dương Minh Nguyên** *(Lead)* | `11257428` | Algorithm architecture, DFS $O(1)$, CSP (FC), Min-Conflicts local search, unit test suites, benchmark runner, GUI demo, LaTeX report lead author, and Git administration. | **50%** |
-| **Vũ Hoàng Sơn** | `11256308` | Benchmark execution, empirical runtime data collection, performance analysis, presentation structure, and oral defense. | **30%** |
+| **Dương Minh Nguyên** *(Lead)* | `11256308` | Algorithm architecture, DFS $O(1)$, CSP (FC), Min-Conflicts local search, unit test suites, benchmark runner, GUI demo, LaTeX report lead author, and Git administration. | **50%** |
+| **Vũ Hoàng Sơn** | `11257428` | Benchmark execution, empirical runtime data collection, performance analysis, presentation structure, and oral defense. | **30%** |
 | **Đặng Đình Gia Bảo** | `11251193` | Metric log cross-checking, empirical data verification, presentation layout & visual design, rehearsal, and defense support. | **20%** |
 
 ---
@@ -73,27 +73,26 @@ n-queens-ai-project/
 
 | Board (N) | Algorithm | Solutions Found | Safe Checks | Valid Nodes | Avg Steps (*) | Avg Restarts (*) | Avg Runtime (ms) |
 | :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **N = 4** | DFS Backtracking | 2 | 60 | 16 | N/A | N/A | 0.055 |
-| | CSP Forward Checking | 2 | 76 | 16 | N/A | N/A | 0.159 |
-| | Min-Conflicts (*) | 1 | N/A | N/A | 9.950 | 0.000 | 0.232 |
-| **N = 5** | DFS Backtracking | 10 | 220 | 53 | N/A | N/A | 0.178 |
-| | CSP Forward Checking | 10 | 282 | 53 | N/A | N/A | 0.388 |
-| | Min-Conflicts (*) | 1 | N/A | N/A | 8.100 | 0.000 | 0.463 |
-| **N = 6** | DFS Backtracking | 4 | 894 | 152 | N/A | N/A | 0.583 |
-| | CSP Forward Checking | 4 | 956 | 118 | N/A | N/A | 1.326 |
-| | Min-Conflicts (*) | 1 | N/A | N/A | 154.850 | 0.000 | 9.875 |
-| **N = 7** | DFS Backtracking | 40 | 3,584 | 551 | N/A | N/A | 4.069 |
-| | CSP Forward Checking | 40 | 3,244 | 393 | N/A | N/A | 8.868 |
-| | Min-Conflicts (*) | 1 | N/A | N/A | 120.300 | 0.100 | 12.028 |
-| **N = 8** | DFS Backtracking | 92 | 15,720 | 2,056 | N/A | N/A | 9.504 |
-| | CSP Forward Checking | 92 | 12,066 | 1,360 | N/A | N/A | 12.401 |
-| | Min-Conflicts (*) | 1 | N/A | N/A | 105.450 | 0.050 | 5.775 |
+| **N = 4** | DFS Backtracking | 2 | 60 | 16 | N/A | N/A | 0.028 |
+| | CSP Forward Checking | 2 | 76 | 16 | N/A | N/A | 0.090 |
+| | Min-Conflicts (*) | 1 | N/A | N/A | 9.950 | 0.000 | 0.105 |
+| **N = 5** | DFS Backtracking | 10 | 220 | 53 | N/A | N/A | 0.065 |
+| | CSP Forward Checking | 10 | 282 | 53 | N/A | N/A | 0.661 |
+| | Min-Conflicts (*) | 1 | N/A | N/A | 8.100 | 0.000 | 0.177 |
+| **N = 6** | DFS Backtracking | 4 | 894 | 152 | N/A | N/A | 0.319 |
+| | CSP Forward Checking | 4 | 956 | 118 | N/A | N/A | 1.031 |
+| | Min-Conflicts (*) | 1 | N/A | N/A | 154.850 | 0.000 | 4.601 |
+| **N = 7** | DFS Backtracking | 40 | 3,584 | 551 | N/A | N/A | 2.335 |
+| | CSP Forward Checking | 40 | 3,244 | 393 | N/A | N/A | 2.989 |
+| | Min-Conflicts (*) | 1 | N/A | N/A | 120.300 | 0.100 | 4.018 |
+| **N = 8** | DFS Backtracking | 92 | 15,720 | 2,056 | N/A | N/A | 12.436 |
+| | CSP Forward Checking | 92 | 12,066 | 1,360 | N/A | N/A | 10.609 |
+| | Min-Conflicts (*) | 1 | N/A | N/A | 105.450 | 0.050 | 5.620 |
 
 > **(*) Reproducibility & Convergence Notes:**
 > 1. **Deterministic Exhaustive Solvers:** DFS Backtracking and CSP with Forward Checking enumerate **all valid solutions** (averaged over 10 trials). Discrete counts (`Solutions`, `Safe Checks`, `Valid Nodes`) are mathematically exact and identical across all machines.
 > 2. **Stochastic Local Search:** Min-Conflicts converges to a single conflict-free configuration (100% success rate across all trials). Results represent the exact mean across 20 seeded trials (`seed = 2024 + N * 100 + run_index`), ensuring `Avg Steps` and `Avg Restarts` are 100% deterministic and reproducible across any computing platform.
 > 3. **Runtimes:** Wall-clock execution durations (`Avg Runtime (ms)`) reflect actual CPU performance on Ubuntu Linux and are subject to minor hardware-level scheduling variations.
-
 ---
 
 ## 🚀 Setup & Execution Guide
