@@ -1,0 +1,16 @@
+board_size,algorithm,solutions,safe_checks,valid_nodes,avg_runtime_ms,avg_steps,avg_restarts
+4,DFS Backtracking,2,60,16,0.028,N/A,N/A
+4,CSP Forward Checking,2,76,16,0.090,N/A,N/A
+4,Min-Conflicts,1,N/A,N/A,0.105,9.950,0.000
+5,DFS Backtracking,10,220,53,0.065,N/A,N/A
+5,CSP Forward Checking,10,282,53,0.661,N/A,N/A
+5,Min-Conflicts,1,N/A,N/A,0.177,8.100,0.000
+6,DFS Backtracking,4,894,152,0.319,N/A,N/A
+6,CSP Forward Checking,4,956,118,1.031,N/A,N/A
+6,Min-Conflicts,1,N/A,N/A,4.601,154.850,0.000
+7,DFS Backtracking,40,3584,551,2.335,N/A,N/A
+7,CSP Forward Checking,40,3244,393,2.989,N/A,N/A
+7,Min-Conflicts,1,N/A,N/A,4.018,120.300,0.100
+8,DFS Backtracking,92,15720,2056,12.436,N/A,N/A
+8,CSP Forward Checking,92,12066,1360,10.609,N/A,N/A
+8,Min-Conflicts,1,N/A,N/A,5.620,105.450,0.050
