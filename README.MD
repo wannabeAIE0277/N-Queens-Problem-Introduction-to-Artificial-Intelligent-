@@ -62,6 +62,7 @@ n-queens-ai-project/
 |   |-- test_reproducibility.py    # Unit tests guaranteeing 100% deterministic reproducibility
 |-- requirements.txt               # Pinned third-party dependencies (matplotlib, pandas)
 |-- README.md                      # Project documentation and reproduction guide
+|-- Report                         # This report itself
 |-- .gitignore                     # Environment & runtime cache exclusions
 ```
 
