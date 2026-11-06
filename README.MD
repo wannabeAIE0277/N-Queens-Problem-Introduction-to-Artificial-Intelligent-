@@ -5,7 +5,7 @@
 > **Term:** Semester 1, Academic Year 2026–2027  
 > **Instructor:** Dr. Nguyen Trong Nghia  
 > **Team:** Group 08  
-> **Repository:** [https://github.com/wannabeAIE0277/N-Queens-Problem](https://github.com/wannabeAIE0277/N-Queens-Problem)
+> **Repository:** [https://github.com/wannabeAIE0277/N-Queens-Problem](https://github.com/wannabeAIE0277/N-Queens-Problem-Introduction-to-Artificial-Intelligent-.git)
 
 ---
 
@@ -68,95 +68,124 @@ n-queens-ai-project/
 
 ---
 
+## ⚡ Zero-Dependency Portability Guarantee
+
+> 🛡️ **Zero External Dependencies Architecture:**
+>
+> All primary modules required for grading, verification, and empirical reproducibility—including the **Core Algorithmic Solvers** (`algorithms/`), the **Automated Test Suites** (`tests/`), the **Empirical Benchmark Runner** (`experiments/benchmark_runner.py`), and the **Chessboard Visualizer** (`visualization/gui_demo.py`)—are built **strictly using the native Python Standard Library**.
+>
+> Evaluators **do not need to install any external pip packages** to run unit tests, reproduce empirical data tables, or inspect interactive solutions! *(The optional third-party library `matplotlib` is required only if one wishes to re-render the academic comparison charts; pre-generated high-resolution PNG plots are already preserved in `visualization/`).*
+
+---
+
+## 🚀 Quickstart & Execution Guide
+
+Evaluators may choose either of the two streamlined methods below based on their preferred workflow:
+
+### 🟢 OPTION 1: IDE 1-Click Execution (VS Code / Cursor / PyCharm)
+
+If the project is opened in an IDE, simply open any script below and click the green **Run** button (top-right corner):
+
+1. **Verify Correctness & 100% Deterministic Reproducibility (Unit Tests):**
+
+   * Open `tests/test_solution_counts.py` $\rightarrow$ Click **Run** *(validates all known solutions for* $N \in [4, 8]$*)*.
+
+   * Open `tests/test_reproducibility.py` $\rightarrow$ Click **Run** *(validates identical runs under seeded pseudo-randomness)*.
+
+2. **Reproduce Empirical Benchmark Metrics (Benchmark Runner):**
+
+   * Open `experiments/benchmark_runner.py` $\rightarrow$ Click **Run** *(automatically benchmarks all solvers, outputs Markdown tables to console, and saves `experiments/results_logger.csv`)*.
+
+3. **Launch Interactive Solution Visualizer:**
+
+   * Open `visualization/gui_demo.py` $\rightarrow$ Click **Run** *(launches the Tkinter GUI window, or gracefully falls back to an interactive ANSI colored terminal board if no display server is present)*.
+
+4. *(Optional)* **Re-generate Academic Comparison Charts:**
+
+   * Open `visualization/plot_generator.py` $\rightarrow$ Click **Run** *(requires `matplotlib`; pre-generated plots are already preserved in `visualization/`)*.
+
+### 💻 OPTION 2: Command-Line Interface (Organized by Operating System)
+
+Open a terminal at the project root directory (`N-Queens-Problem-Introduction-to-Artificial-Intelligent-`):
+
+#### 🐧 Linux & macOS (Terminal / Bash / Zsh)
+
+```
+# 1. Run Automated Test Suite (10/10 PASS - validates ground-truth counts & seed determinism)
+python3 -m unittest discover -s tests -v
+
+# 2. Run Empirical Benchmark Suite (outputs Markdown tables & updates experiments/results_logger.csv)
+python3 -m experiments.benchmark_runner
+
+# 3. Launch Interactive Chessboard Demo (Tkinter GUI window or ASCII colored fallback)
+python3 -m visualization.gui_demo
+
+# 4. (Optional) Install dependencies & re-render academic comparison charts
+pip install -r requirements.txt
+python3 -m visualization.plot_generator
+
+```
+
+#### 🪟 Windows (PowerShell / Command Prompt)
+
+```
+# 1. Run Automated Test Suite (10/10 PASS - validates ground-truth counts & seed determinism)
+python -m unittest discover -s tests -v
+# (Note: If multiple Python versions exist, use 'py -m unittest discover -s tests -v')
+
+# 2. Run Empirical Benchmark Suite (outputs Markdown tables & updates experiments/results_logger.csv)
+python -m experiments.benchmark_runner
+
+# 3. Launch Interactive Chessboard Demo (Tkinter GUI window or ASCII colored fallback)
+python -m visualization.gui_demo
+
+# 4. (Optional) Install dependencies & re-render academic comparison charts
+python -m pip install -r requirements.txt
+python -m visualization.plot_generator
+```
+
+---
+
 ## 📊 Empirical Benchmark Results (4 <= N <= 8)
 
-*Data gathered on Ubuntu Linux, Python 3.12 (single-threaded execution, high-precision `time.perf_counter()`):*
+*Benchmark environment: Ubuntu Linux, Python 3.12, single-threaded execution, high-precision timing via `time.perf_counter()`:*
 
-| Board (N) | Algorithm | Solutions Found | Safe Checks | Valid Nodes | Avg Steps (*) | Avg Restarts (*) | Avg Runtime (ms) |
-| :---: | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **N = 4** | DFS Backtracking | 2 | 60 | 16 | N/A | N/A | 0.028 |
-| | CSP Forward Checking | 2 | 76 | 16 | N/A | N/A | 0.090 |
-| | Min-Conflicts (*) | 1 | N/A | N/A | 9.950 | 0.000 | 0.105 |
-| **N = 5** | DFS Backtracking | 10 | 220 | 53 | N/A | N/A | 0.065 |
-| | CSP Forward Checking | 10 | 282 | 53 | N/A | N/A | 0.661 |
-| | Min-Conflicts (*) | 1 | N/A | N/A | 8.100 | 0.000 | 0.177 |
-| **N = 6** | DFS Backtracking | 4 | 894 | 152 | N/A | N/A | 0.319 |
-| | CSP Forward Checking | 4 | 956 | 118 | N/A | N/A | 1.031 |
-| | Min-Conflicts (*) | 1 | N/A | N/A | 154.850 | 0.000 | 4.601 |
-| **N = 7** | DFS Backtracking | 40 | 3,584 | 551 | N/A | N/A | 2.335 |
-| | CSP Forward Checking | 40 | 3,244 | 393 | N/A | N/A | 2.989 |
-| | Min-Conflicts (*) | 1 | N/A | N/A | 120.300 | 0.100 | 4.018 |
-| **N = 8** | DFS Backtracking | 92 | 15,720 | 2,056 | N/A | N/A | 12.436 |
-| | CSP Forward Checking | 92 | 12,066 | 1,360 | N/A | N/A | 10.609 |
-| | Min-Conflicts (*) | 1 | N/A | N/A | 105.450 | 0.050 | 5.620 |
+| Board ($N$) | Algorithm | Solutions Found | Safe Checks | Valid Nodes | Avg Steps (\*) | Avg Restarts (\*) | Avg Runtime (ms) | 
+| ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | 
+| $N = 4$ | DFS Backtracking | 2 | 60 | 16 | N/A | N/A | 0.028 | 
+|  | CSP Forward Checking | 2 | 76 | 16 | N/A | N/A | 0.090 | 
+|  | Min-Conflicts (\*) | 1 | N/A | N/A | 9.950 | 0.000 | 0.105 | 
+| $N = 5$ | DFS Backtracking | 10 | 220 | 53 | N/A | N/A | 0.065 | 
+|  | CSP Forward Checking | 10 | 282 | 53 | N/A | N/A | 0.661 | 
+|  | Min-Conflicts (\*) | 1 | N/A | N/A | 8.100 | 0.000 | 0.177 | 
+| $N = 6$ | DFS Backtracking | 4 | 894 | 152 | N/A | N/A | 0.319 | 
+|  | CSP Forward Checking | 4 | 956 | 118 | N/A | N/A | 1.031 | 
+|  | Min-Conflicts (\*) | 1 | N/A | N/A | 154.850 | 0.000 | 4.601 | 
+| $N = 7$ | DFS Backtracking | 40 | 3,584 | 551 | N/A | N/A | 2.335 | 
+|  | CSP Forward Checking | 40 | 3,244 | 393 | N/A | N/A | 2.989 | 
+|  | Min-Conflicts (\*) | 1 | N/A | N/A | 120.300 | 0.100 | 4.018 | 
+| $N = 8$ | DFS Backtracking | 92 | 15,720 | 2,056 | N/A | N/A | 12.436 | 
+|  | CSP Forward Checking | 92 | 12,066 | 1,360 | N/A | N/A | 10.609 | 
+|  | Min-Conflicts (\*) | 1 | N/A | N/A | 105.450 | 0.050 | 5.620 | 
 
-> **(*) Reproducibility & Convergence Notes:**
-> 1. **Deterministic Exhaustive Solvers:** DFS Backtracking and CSP with Forward Checking enumerate **all valid solutions** (averaged over 10 trials). Discrete counts (`Solutions`, `Safe Checks`, `Valid Nodes`) are mathematically exact and identical across all machines.
-> 2. **Stochastic Local Search:** Min-Conflicts converges to a single conflict-free configuration (100% success rate across all trials). Results represent the exact mean across 20 seeded trials (`seed = 2024 + N * 100 + run_index`), ensuring `Avg Steps` and `Avg Restarts` are 100% deterministic and reproducible across any computing platform.
-> 3. **Runtimes:** Wall-clock execution durations (`Avg Runtime (ms)`) reflect actual CPU performance on Ubuntu Linux and are subject to minor hardware-level scheduling variations.
----
-
-## 🚀 Setup & Execution Guide
-
-### 1. Prerequisites & Environment Setup
-
-Clone the repository and install dependencies:
-
-```bash
-git clone https://github.com/wannabeAIE0277/N-Queens-Problem-Introduction-to-Artificial-Intelligent-.git
-cd N-Queens-Problem
-
-# Optional: activate virtual environment
-python3 -m venv venv
-source venv/bin/activate  # On Linux/macOS
-# .\venv\Scripts\activate # On Windows
-
-# Install required dependencies
-pip install -r requirements.txt
-```
-
-### 2. Run Automated Verification & Reproducibility Tests
-
-Execute the full unit test suite to verify algorithm correctness and deterministic seed behavior:
-
-```bash
-python3 -m unittest discover -s tests -v
-```
-
-Or run test modules individually:
-
-```bash
-python3 -m unittest tests/test_solution_counts.py
-python3 -m unittest tests/test_reproducibility.py
-```
-
-### 3. Run Benchmark Suite & Log Metrics
-
-Run benchmark across $4 \le N \le 8$ and update `results_logger.csv`:
-
-```bash
-python3 -m experiments.benchmark_runner
-```
-
-### 4. Re-generate Performance Plots
-
-Generate updated high-resolution comparison plots into `visualization/`:
-
-```bash
-python3 -m visualization.plot_generator
-```
-
-### 5. Launch Interactive GUI Visualizer
-
-Launch the chessboard GUI to visually inspect solutions and compare algorithm behaviors:
-
-```bash
-python3 -m visualization.gui_demo
-```
-
-*(If a graphical display server is not available, the script automatically falls back to an interactive ASCII console demo).*
+> **(\*) Reproducibility & Determinism Notes:**
+>
+> 1. **Systematic Exhaustive Solvers:** DFS Backtracking and CSP with Forward Checking explore the full search space to enumerate **all legal solutions** (averaged over 10 trials). Discrete metric counts (`Solutions`, `Safe Checks`, `Valid Nodes`) are mathematically deterministic and identical across all machines.
+>
+> 2. **Stochastic Local Search:** Min-Conflicts converges to a single conflict-free goal state (100% success rate across all configurations). Each trial is governed by an independent deterministic seed formula:
+>    
+>
+>    $$
+>    \text{seed} = 2024 + 100 \times N + \text{run\_index}
+>    $$
+>
+>    
+>    guaranteeing that discrete metrics (`Avg Steps` and `Avg Restarts`) are strictly reproducible across any operating system.
+>
+> 3. **Runtimes:** Wall-clock durations (`Avg Runtime (ms)`) reflect single-threaded CPU execution and remain subject to minor hardware-level scheduler jitter.
 
 ---
+
 
 ## 📜 References
 
