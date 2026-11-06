@@ -80,37 +80,63 @@ n-queens-ai-project/
 
 ## 🚀 Quickstart & Execution Guide
 
+### 1. Obtain the Repository
+
+Choose the most convenient method for your environment:
+
+* **Method A: Clone directly via VS Code GUI (Recommended, No Terminal Needed)**
+  1. Open **VS Code**.
+  2. Press `Ctrl + Shift + P` (or `Cmd + Shift + P` on macOS) and type:
+     ```text
+     Git: Clone
+     ```
+  3. Paste the repository URL:
+     ```text
+     https://github.com/wannabeAIE0277/N-Queens-Problem-Introduction-to-Artificial-Intelligent-.git
+     ```
+  4. Select a local directory to save the project and click **Open** when prompted.
+
+* **Method B: Download ZIP (No Git Installation Required)**
+  1. Navigate to the GitHub repository page: `https://github.com/wannabeAIE0277/N-Queens-Problem-Introduction-to-Artificial-Intelligent-`
+  2. Click the green **`<> Code`** button and select **Download ZIP**.
+  3. Extract the downloaded `.zip` archive on your machine.
+  4. In VS Code, go to **File** $\rightarrow$ **Open Folder...** and select the extracted project directory.
+
+* **Method C: Standard Git CLI**
+  ```bash
+  git clone https://github.com/wannabeAIE0277/N-Queens-Problem-Introduction-to-Artificial-Intelligent-.git
+  cd N-Queens-Problem-Introduction-to-Artificial-Intelligent-
+  ```
+
+---
+
+### 2. Execution Workflows
+
 Evaluators may choose either of the two streamlined methods below based on their preferred workflow:
 
-### 🟢 OPTION 1: IDE 1-Click Execution (VS Code / Cursor / PyCharm)
+#### 🟢 OPTION 1: IDE 1-Click Execution (VS Code / PyCharm / Cursor)
 
 If the project is opened in an IDE, simply open any script below and click the green **Run** button (top-right corner):
 
 1. **Verify Correctness & 100% Deterministic Reproducibility (Unit Tests):**
-
-   * Open `tests/test_solution_counts.py` $\rightarrow$ Click **Run** *(validates all known solutions for* $N \in [4, 8]$*)*.
-
+    * Open `tests/test_solution_counts.py` -> Click **Run** (Validates all ground-truth solutions for $4 \le N \le 8$).
    * Open `tests/test_reproducibility.py` $\rightarrow$ Click **Run** *(validates identical runs under seeded pseudo-randomness)*.
-
 2. **Reproduce Empirical Benchmark Metrics (Benchmark Runner):**
-
    * Open `experiments/benchmark_runner.py` $\rightarrow$ Click **Run** *(automatically benchmarks all solvers, outputs Markdown tables to console, and saves `experiments/results_logger.csv`)*.
-
 3. **Launch Interactive Solution Visualizer:**
-
    * Open `visualization/gui_demo.py` $\rightarrow$ Click **Run** *(launches the Tkinter GUI window, or gracefully falls back to an interactive ANSI colored terminal board if no display server is present)*.
+4. **(Optional)** **Re-generate Analysis Plots (Requires matplotlib):**  
+   * Note: High-resolution benchmark plots are already pre-rendered in `visualization/`.
+   If you wish to re-generate them, install dependencies via `pip install -r requirements.txt` (or `py -m pip install -r requirements.txt`), then open `visualization/plot_generator.py` -> Click **Run**.
 
-4. *(Optional)* **Re-generate Academic Comparison Charts:**
+---
 
-   * Open `visualization/plot_generator.py` $\rightarrow$ Click **Run** *(requires `matplotlib`; pre-generated plots are already preserved in `visualization/`)*.
-
-### 💻 OPTION 2: Command-Line Interface (Organized by Operating System)
+#### 💻 OPTION 2: Command-Line Interface (Organized by Operating System)
 
 Open a terminal at the project root directory (`N-Queens-Problem-Introduction-to-Artificial-Intelligent-`):
 
-#### 🐧 Linux & macOS (Terminal / Bash / Zsh)
-
-```
+##### 🐧 Linux & macOS (Terminal / Bash / Zsh)
+```bash
 # 1. Run Automated Test Suite (10/10 PASS - validates ground-truth counts & seed determinism)
 python3 -m unittest discover -s tests -v
 
@@ -123,12 +149,10 @@ python3 -m visualization.gui_demo
 # 4. (Optional) Install dependencies & re-render academic comparison charts
 pip install -r requirements.txt
 python3 -m visualization.plot_generator
-
 ```
 
-#### 🪟 Windows (PowerShell / Command Prompt)
-
-```
+##### 🪟 Windows (PowerShell / Command Prompt)
+```powershell
 # 1. Run Automated Test Suite (10/10 PASS - validates ground-truth counts & seed determinism)
 python -m unittest discover -s tests -v
 # (Note: If multiple Python versions exist, use 'py -m unittest discover -s tests -v')
@@ -143,6 +167,7 @@ python -m visualization.gui_demo
 python -m pip install -r requirements.txt
 python -m visualization.plot_generator
 ```
+> **Note for Windows Users:** If `python` points to an environment without `pip` (e.g., standard MSYS2) or triggers a Microsoft Store stub, prefix commands with `py` instead (e.g., `py -m unittest discover -s tests -v` and `py -m pip install -r requirements.txt`).
 
 ---
 
