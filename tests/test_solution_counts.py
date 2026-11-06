@@ -90,8 +90,6 @@ class TestDfsBacktracking(unittest.TestCase):
                 self.assertGreater(valid_nodes, 0)
 
 
-if __name__ == "__main__":
-    unittest.main()
 
 
 from algorithms.csp_forward_checking import solve_all_csp, solve_first_csp
@@ -117,3 +115,8 @@ class TestCspForwardChecking(unittest.TestCase):
                 for i in range(n):
                     for j in range(i + 1, n):
                         self.assertNotEqual(abs(sol[i] - sol[j]), abs(i - j))
+
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
